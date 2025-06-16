@@ -1,16 +1,15 @@
-name : Deploy NOde Application
-
+name : Deploy Node Application
 on:
   push:
     branches:
-      - mean-ec2-docker
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
-        uses: actions/chckout@v4
+        uses: actions/checkout@v4
       - name: Create .env file
         run: echo "MONGO_PASSWORD=${{MONGO_PASSWORD}} >> .env"
       - name: Login to docker hub
