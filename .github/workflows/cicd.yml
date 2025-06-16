@@ -12,7 +12,7 @@ jobs:
       - name: Checkout source
         uses: actions/chckout@v4
       - name: Create .env file
-        run: echo"MONGO_PASSWORD=${{MONGO_PASSWORD}}>.env"
+        run: echo "MONGO_PASSWORD=${{MONGO_PASSWORD}} >> .env"
       - name: Login to docker hub
         run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSOWRD}}
       - name: Build docker image
@@ -29,6 +29,6 @@ jobs:
       - name: Delete old container
         run: docker rm -f e-commerce-container
       - name: Run docker container
-        run: docker container -d -p 4000:4000 --name e-commerce-container amitkumar023/e-commerce:latest
+        run: docker run -d -p 4000:4000 --name e-commerce-container amitkumar023/e-commerce:latest
 
 
