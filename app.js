@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-// const port = 3000;
-const port = process.env.PORT || 3000;
+const port = 4000;
+// const port = process.env.PORT || 3000;
 const categoryRoute = require("./routes/category");
 const brandRoute = require("./routes/brand");
 const productRoute = require("./routes/product");
@@ -11,6 +11,8 @@ const authRoute = require("./routes/auth");
 const orderRoute = require("./routes/order");
 const cors = require("cors");
 const {verifyToken, isAdmin} = require("./middleware/auth-middleware");
+ require('dotenv').config();
+
 
 
 app.use(express.json());
@@ -26,8 +28,9 @@ app.use("/product", verifyToken, isAdmin, productRoute);
 app.use("/customer", verifyToken, customerRoute)
 app.use("/auth", authRoute);
 
+
 async function connectDB() {
-    await mongoose.connect("mongodb://localhost:27017", {
+    await mongoose.connect(`mongodb+srv://AmitKumar05:${process.env.MONGO_PASSWORD}@e-commerce.tarnabc.mongodb.net/?retryWrites=true&w=majority&appName=E-commerce` , {
         dbName: "E-commerce-db",
     });
     console.log("MongoDB Connected");
